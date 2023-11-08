@@ -1,0 +1,43 @@
+{
+	"name": "node-boilerplate",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
+		"test": "jest --silent --forceExit",
+		"build": "cross-env NODE_ENV=production tsup",
+		"lint": "eslint . --ext .ts",
+		"testx": "dotenv -e .env.test -- npx prisma migrate deploy && jest --silent --forceExit"
+	},
+	"devDependencies": {
+		"@types/jest": "^29.5.8",
+		"@types/node": "^20.9.0",
+		"@typescript-eslint/eslint-plugin": "^6.10.0",
+		"@typescript-eslint/parser": "^6.10.0",
+		"eslint": "^8.53.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-config-standard": "^17.1.0",
+		"eslint-import-resolver-typescript": "^3.6.1",
+		"eslint-plugin-import": "^2.29.0",
+		"eslint-plugin-n": "^16.3.0",
+		"eslint-plugin-prettier": "^5.0.1",
+		"eslint-plugin-promise": "^6.1.1",
+		"jest": "^29.7.0",
+		"prettier": "^3.0.3",
+		"supertest": "^6.3.3",
+		"ts-jest": "^29.1.1",
+		"ts-node-dev": "^2.0.0",
+		"tsconfig-paths": "^4.2.0",
+		"tsup": "^7.2.0",
+		"typescript": "^5.2.2"
+	},
+	"dependencies": {
+		"@fastify/cors": "^8.4.1",
+		"@fastify/formbody": "^7.4.0",
+		"cross-env": "^7.0.3",
+		"dotenv-cli": "^7.3.0",
+		"fastify": "^4.24.3",
+		"http-status-codes": "^2.3.0"
+	}
+}
