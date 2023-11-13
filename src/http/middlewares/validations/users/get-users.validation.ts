@@ -1,6 +1,10 @@
 import { z } from "zod"
 
-export default z
+export type GetUserDto = {
+	q?: string
+}
+
+export const GetUserSchema = z
 	.object({
 		q: z.string().optional(),
 	})

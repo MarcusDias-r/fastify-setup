@@ -2,7 +2,9 @@ import Fastify from "fastify"
 import cors from "@fastify/cors"
 import formbody from "@fastify/formbody"
 import { bootRoutes } from "./routes"
-import { httpErrorHandler } from "../errors/http-error-handler"
+import { fastifyErrorHandler } from "../errors/fastify-error-handler"
+
+const port = Number(process.env.PORT) || 3000
 
 export const bootstrap = async () => {
 	const fastify = Fastify({
@@ -10,12 +12,12 @@ export const bootstrap = async () => {
 	})
 
 	bootRoutes(fastify)
-	httpErrorHandler(fastify)
+	fastifyErrorHandler(fastify)
 
 	await fastify.register(cors)
 	await fastify.register(formbody)
 
-	fastify.listen({ port: 3000 }, function (err, _address) {
+	fastify.listen({ port }, function (err, _address) {
 		if (err) {
 			fastify.log.error(err)
 		}

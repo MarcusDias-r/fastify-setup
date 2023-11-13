@@ -4,7 +4,7 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
+		"dev": "ts-node-dev -r tsconfig-paths/register -r dotenv/config --inspect --transpile-only --ignore-watch node_modules src/index.ts",
 		"test": "jest --silent --forceExit",
 		"build": "cross-env NODE_ENV=production tsup",
 		"lint": "eslint . --ext .ts",
@@ -35,10 +35,17 @@
 	"dependencies": {
 		"@fastify/cors": "^8.4.1",
 		"@fastify/formbody": "^7.4.0",
+		"@prisma/client": "^5.5.2",
+		"@types/bcrypt": "^5.0.2",
+		"@types/jsonwebtoken": "^9.0.5",
+		"bcrypt": "^5.1.1",
 		"cross-env": "^7.0.3",
+		"dotenv": "^16.3.1",
 		"dotenv-cli": "^7.3.0",
 		"fastify": "^4.24.3",
 		"http-status-codes": "^2.3.0",
+		"jsonwebtoken": "^9.0.2",
+		"prisma": "^5.5.2",
 		"zod": "^3.22.4"
 	}
 }
