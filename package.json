@@ -5,14 +5,14 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "ts-node-dev -r tsconfig-paths/register -r dotenv/config --inspect --transpile-only --ignore-watch node_modules src/index.ts",
-		"test": "jest --silent --forceExit",
+		"test": "dotenv -e .env.test -- npx prisma migrate deploy && jest --silent=false --forceExit",
 		"build": "cross-env NODE_ENV=production tsup",
-		"lint": "eslint . --ext .ts",
-		"testx": "dotenv -e .env.test -- npx prisma migrate deploy && jest --silent --forceExit"
+		"lint": "eslint . --ext .ts"
 	},
 	"devDependencies": {
 		"@types/jest": "^29.5.8",
 		"@types/node": "^20.9.0",
+		"@types/supertest": "^2.0.16",
 		"@typescript-eslint/eslint-plugin": "^6.10.0",
 		"@typescript-eslint/parser": "^6.10.0",
 		"eslint": "^8.53.0",
@@ -38,6 +38,7 @@
 		"@prisma/client": "^5.5.2",
 		"@types/bcrypt": "^5.0.2",
 		"@types/jsonwebtoken": "^9.0.5",
+		"@types/lodash": "^4.14.201",
 		"bcrypt": "^5.1.1",
 		"cross-env": "^7.0.3",
 		"dotenv": "^16.3.1",
@@ -45,6 +46,7 @@
 		"fastify": "^4.24.3",
 		"http-status-codes": "^2.3.0",
 		"jsonwebtoken": "^9.0.2",
+		"lodash": "^4.17.21",
 		"prisma": "^5.5.2",
 		"zod": "^3.22.4"
 	}

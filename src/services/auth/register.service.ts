@@ -5,6 +5,7 @@ import HttpError from "@/errors/http-error-handler"
 import { RegisterDto } from "@/http/middlewares/validations/auth/register.validation"
 import { hash } from "bcrypt"
 import jwt from "jsonwebtoken"
+import { omit } from "lodash"
 
 export class RegisterService {
 	private secret = process.env.JWT_SECRET || "secret"
@@ -26,6 +27,6 @@ export class RegisterService {
 			expiresIn: this.expiresTime,
 		})
 
-		return { authorization: token, user }
+		return { token, user: omit(user, ["password"]) }
 	}
 }

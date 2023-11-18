@@ -27,6 +27,8 @@ export class LoginService {
 		const expiresIn = new Date()
 		expiresIn.setTime(expiresIn.getTime() + this.expiresTime)
 
-		return { token, expiresIn: expiresIn.toISOString() }
+		const response = { token, expiresIn: expiresIn.toISOString(), user }
+
+		return response
 	}
 }
