@@ -19,8 +19,10 @@ export class RegisterService {
 		if (alreadyExist)
 			throw new HttpException("user already exist", HttpStatus.CONFLICT)
 
+		const pass = await hash(password, 10)
+
 		const user = await prisma.users.create({
-			data: { email, name, password: await hash(password, 10) },
+			data: { email, name, password: pass },
 		})
 
 		const token = jwt.sign({ id: user.id, email: user.email }, this.secret, {

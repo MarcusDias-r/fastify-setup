@@ -3,7 +3,8 @@ import { prisma } from "@/config/prisma"
 import { HttpStatus } from "@/constants/https-status.constant"
 import { HttpException } from "@/factories/http-error.factory"
 import { LoginDto } from "@/http/middlewares/validations/auth/login.validation"
-import { compare } from "bcrypt"
+import { compare, hash } from "bcrypt"
+import { log } from "console"
 import jwt from "jsonwebtoken"
 
 export class LoginService {
@@ -13,9 +14,11 @@ export class LoginService {
 	async handle({ email, password }: LoginDto) {
 		const user = await prisma.users.findUnique({ where: { email } })
 
-		if (!user) throw new HttpException("account not found", HttpStatus.NOT_FOUND)
+		if (!user)
+			throw new HttpException("account not found", HttpStatus.NOT_FOUND)
 
-		const areEqual = compare(password, user.password)
+		const areEqual = await compare(String(password), user.password)
+		console.log({ areEqual, password, up: user.password })
 
 		if (!areEqual)
 			throw new HttpException("invalid credentials", HttpStatus.UNAUTHORIZED)

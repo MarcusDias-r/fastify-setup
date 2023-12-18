@@ -12,13 +12,13 @@ export const authRoutes = async (fastify: FastifyInstance) => {
 		url: "/login",
 		method: "post",
 		handler: authController.login,
-		preHandler: async () => queryValidationMiddleware(LoginSchema),
+		preHandler: [queryValidationMiddleware(LoginSchema)],
 	})
 
 	fastify.route({
 		url: "/register",
 		method: "post",
 		handler: authController.register,
-		preHandler: async () => queryValidationMiddleware(RegisterSchema),
+		preHandler: [queryValidationMiddleware(RegisterSchema)],
 	})
 }

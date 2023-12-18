@@ -18,6 +18,7 @@ const jestConfig: JestConfigWithTsJest = {
 		"src/helpers",
 		"src/http/app.ts",
 		"src/index.ts",
+		"src/@types"
 	],
 	collectCoverageFrom: ["<rootDir>/src/**/*"],
 	moduleNameMapper: {

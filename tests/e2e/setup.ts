@@ -22,3 +22,19 @@ export const setup = async () => {
 
 	return request
 }
+
+let webToken: string
+
+export const webLogin = async (email: string, password: string) => {
+	if (webToken) return webToken
+
+	const request = await setup()
+
+	const { body } = await request
+		.post(`/auth/register`)
+		.send({ email, password, name: "something" })
+
+	webToken = body.result[0].token
+
+	return webToken
+}
