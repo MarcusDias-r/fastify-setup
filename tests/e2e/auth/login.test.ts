@@ -8,8 +8,7 @@ describe("POST /auth/login", () => {
 
 	beforeAll(async () => {
 		request = await setup()
-		console.log(request);
-		
+
 		await prisma.users.create({
 			data: {
 				name: "Test User",

@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@fastify/cors": "^8.4.1",
+		"@fastify/env": "^4.3.0",
 		"@fastify/formbody": "^7.4.0",
 		"@prisma/client": "^5.5.2",
 		"@types/bcrypt": "^5.0.2",

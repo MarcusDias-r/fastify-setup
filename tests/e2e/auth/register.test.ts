@@ -17,9 +17,9 @@ describe("POST /auth/login", () => {
 			password: "40028922",
 		})
 
-		const [item] = response.body.result
+		const token = response.body.result[0].token
 
-		expect(item.token).toBeDefined()
+		expect(token).toBeDefined()
 		expect(response.statusCode).toBe(200)
 	})
 

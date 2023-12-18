@@ -6,6 +6,7 @@ import {
 } from "fastify"
 import { PresenterFactory } from "../factories/presenter.factory"
 import { ZodError } from "zod"
+import { HttpException } from "@/factories/http-error.factory"
 
 export const fastifyErrorHandler = (fastify: FastifyInstance) => {
 	fastify.setErrorHandler(
@@ -14,11 +15,18 @@ export const fastifyErrorHandler = (fastify: FastifyInstance) => {
 				return reply.status(422).send(
 					new PresenterFactory({
 						isValid: false,
-						message: [error.format()._errors[0]],
+						message: [JSON.stringify(error.format())],
+					}),
+				)
+			} else if (error instanceof HttpException) {
+				return reply.status(error.status).send(
+					new PresenterFactory({
+						isValid: false,
+						message: [error.message],
 					}),
 				)
 			} else {
-				reply.send(
+				return reply.send(
 					new PresenterFactory({ isValid: false, message: [error.message] }),
 				)
 			}

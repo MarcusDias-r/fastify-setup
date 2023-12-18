@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import { prisma } from "@/config/prisma"
 import { HttpStatus } from "@/constants/https-status.constant"
-import HttpError from "@/errors/http-error-handler"
+import { HttpException } from "@/factories/http-error.factory"
 import { RegisterDto } from "@/http/middlewares/validations/auth/register.validation"
 import { hash } from "bcrypt"
 import jwt from "jsonwebtoken"
@@ -17,7 +17,7 @@ export class RegisterService {
 		})
 
 		if (alreadyExist)
-			throw new HttpError("user already exist", HttpStatus.CONFLICT)
+			throw new HttpException("user already exist", HttpStatus.CONFLICT)
 
 		const user = await prisma.users.create({
 			data: { email, name, password: await hash(password, 10) },

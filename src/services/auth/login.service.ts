@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import { prisma } from "@/config/prisma"
 import { HttpStatus } from "@/constants/https-status.constant"
-import HttpError from "@/errors/http-error-handler"
+import { HttpException } from "@/factories/http-error.factory"
 import { LoginDto } from "@/http/middlewares/validations/auth/login.validation"
 import { compare } from "bcrypt"
 import jwt from "jsonwebtoken"
@@ -13,12 +13,12 @@ export class LoginService {
 	async handle({ email, password }: LoginDto) {
 		const user = await prisma.users.findUnique({ where: { email } })
 
-		if (!user) throw new HttpError("account not found", HttpStatus.NOT_FOUND)
+		if (!user) throw new HttpException("account not found", HttpStatus.NOT_FOUND)
 
 		const areEqual = compare(password, user.password)
 
 		if (!areEqual)
-			throw new HttpError("invalid credentials", HttpStatus.UNAUTHORIZED)
+			throw new HttpException("invalid credentials", HttpStatus.UNAUTHORIZED)
 
 		const token = jwt.sign({ id: user.id, email: user.email }, this.secret, {
 			expiresIn: this.expiresTime,

@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify"
 import { verify } from "jsonwebtoken"
-import HttpError from "@/errors/http-error-handler"
+import { HttpException } from "@/factories/http-error.factory"
 
 interface TokenPayload {
 	id: number
@@ -18,7 +18,7 @@ export const authMiddleware =
 		const authHeader = req.headers.authorization
 
 		if (!authHeader) {
-			throw new HttpError("JWT token is missing", 422)
+			throw new HttpException("JWT token is missing", 422)
 		}
 
 		const [, token] = authHeader.split(" ")
@@ -37,6 +37,6 @@ export const authMiddleware =
 
 			return next()
 		} catch {
-			throw new HttpError("Invalid JWT token", 422)
+			throw new HttpException("Invalid JWT token", 422)
 		}
 	}
